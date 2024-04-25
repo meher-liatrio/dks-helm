@@ -8,13 +8,18 @@ global:
   image:
     pullPolicy: IfNotPresent
 
-frontend: {}
+frontend:
+  image:
+    repository: meherliatrio/dks-ui
+    tag: 0.0.5
+  service:
+    port: 3000
 
 backend:
   image:
-    repository: DOCKERHUB_USERNAME/dks_api
+    repository: meherliatrio/dks-api
     # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
+    tag: 0.0.5
   service:
     port: 8080
     
