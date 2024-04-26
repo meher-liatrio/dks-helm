@@ -4,14 +4,14 @@ metadata:
   name: frontend
   namespace: dks
   labels:
-    app.kubernetes.io/instance: devops-knowledge-share 
-    app.kubernetes.io/name: devops-knowledge-share
+    app.kubernetes.io/instance: devops-knowledge-share-frontend 
+    app.kubernetes.io/name: devops-knowledge-share-frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/instance: devops-knowledge-share 
-      app.kubernetes.io/name: devops-knowledge-share
+      app.kubernetes.io/instance: devops-knowledge-share-frontend 
+      app.kubernetes.io/name: devops-knowledge-share-frontend
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,8 +19,8 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        app.kubernetes.io/instance: devops-knowledge-share 
-        app.kubernetes.io/name: devops-knowledge-share
+        app.kubernetes.io/instance: devops-knowledge-share-frontend 
+        app.kubernetes.io/name: devops-knowledge-share-frontend
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -33,6 +33,18 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag | default .Chart.AppVersion }}"
+          env:
+            - name: APPNAME
+              value: "dks-ui"
+            - name: APP_PORT
+              value: "3000"
+            - name: DKS_UI_BASE_URL
+              value: "http://frontend:3000"
+            - name: DKS_API_BASE_URL
+              value: "http://backend:8080"
+            - name: ENABLE_IMAGE_URL
+              value: "true"
+
           imagePullPolicy: {{ .Values.global.image.pullPolicy }}
           ports:
             - name: http

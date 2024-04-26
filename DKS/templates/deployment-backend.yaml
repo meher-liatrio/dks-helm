@@ -4,14 +4,14 @@ metadata:
   name: backend
   namespace: dks
   labels:
-    app.kubernetes.io/instance: devops-knowledge-share 
-    app.kubernetes.io/name: devops-knowledge-share
+    app.kubernetes.io/instance: devops-knowledge-share-backend 
+    app.kubernetes.io/name: devops-knowledge-share-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/instance: devops-knowledge-share 
-      app.kubernetes.io/name: devops-knowledge-share
+      app.kubernetes.io/instance: devops-knowledge-share-backend 
+      app.kubernetes.io/name: devops-knowledge-share-backend
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,8 +19,8 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        app.kubernetes.io/instance: devops-knowledge-share 
-        app.kubernetes.io/name: devops-knowledge-share
+        app.kubernetes.io/instance: devops-knowledge-share-backend 
+        app.kubernetes.io/name: devops-knowledge-share-backend
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -40,7 +40,7 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: actuator/health/app
+              path: /actuator/health/app
               port: http
           readinessProbe:
             httpGet:

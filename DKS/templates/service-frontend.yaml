@@ -4,8 +4,8 @@ metadata:
   name: frontend
   namespace: dks
   labels:
-    app.kubernetes.io/instance: devops-knowledge-share 
-    app.kubernetes.io/name: devops-knowledge-share
+    app.kubernetes.io/instance: devops-knowledge-share-frontend-service 
+    app.kubernetes.io/name: devops-knowledge-share-frontend-service
 spec:
   type: ClusterIP
   ports:
@@ -14,5 +14,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/instance: devops-knowledge-share 
-    app.kubernetes.io/name: devops-knowledge-share
+    app.kubernetes.io/instance: devops-knowledge-share-frontend 
+    app.kubernetes.io/name: devops-knowledge-share-frontend
